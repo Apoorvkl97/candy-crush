@@ -1,0 +1,43 @@
+.App {
+  padding: 2rem;
+  display: flex;
+}
+
+.game {
+  width: 35rem;
+  height: 35rem;
+  display: inline-block;
+}
+
+.game img {
+  width: 4.375rem;
+  height: 4.375rem;
+}
+
+.score {
+  margin:10rem;
+}
+
+h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size:8rem;
+  margin:0;
+  color: black;
+}
+
+@media (max-width: 600px) {
+  *{
+    font-size: 60%;
+  }
+
+  .App {
+    display: block;
+    text-align: center;
+    margin-top: 20rem;
+  }
+
+  .score {
+    display: block;
+    margin: 7rem;
+  }
+}
