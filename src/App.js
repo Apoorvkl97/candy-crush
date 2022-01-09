@@ -32,11 +32,10 @@ const coloursForBoxes = () => {
     coloursArray.push(randomColour);
   }
   setColoursArranged(coloursArray);
-  console.log(coloursArranged);
 };
 
 const isInvalid = () => {
-  if(beingDragged) {
+  if(beingDragged && beingReplaced) {
     const beingDraggedId = parseInt(beingDragged.getAttribute("data-id"));
     const beingReplacedId = parseInt(beingReplaced.getAttribute("data-id"));
     const validMoves = [
@@ -132,6 +131,10 @@ const dragDrop = (e) => {
 };
 
 const dragEnd = () => {
+  perform()
+}
+
+const perform = () => {
   const beingDraggedId = parseInt(beingDragged.getAttribute("data-id"));
   const beingReplacedId = parseInt(beingReplaced.getAttribute("data-id"));
 
@@ -161,6 +164,21 @@ const dragEnd = () => {
   coloursArranged[beingReplacedId] = beingReplaced.getAttribute('src')
   setColoursArranged([...coloursArranged])
 }
+}
+
+const touchStart = (e) => {
+  setBeingDragged(e.target)
+}
+
+const touchMove = (e) => {
+  const x = e.changedTouches[0].pageX;
+  const y = e.changedTouches[0].pageY;
+  const target = document.elementFromPoint(x, y);
+  setBeingReplaced(target)
+}
+
+const touchEnd = (e) => {
+  perform()
 }
 
 useEffect(() => {
@@ -196,6 +214,9 @@ return () => clearInterval(timer);
             onDragLeave = {(e) => e.preventDefault()}
             onDrop = {dragDrop}
             onDragEnd = {dragEnd}
+            onTouchStart = {touchStart}
+            onTouchMove = {touchMove}
+            onTouchEnd = {touchEnd}
             />
         ))}
       </div>
